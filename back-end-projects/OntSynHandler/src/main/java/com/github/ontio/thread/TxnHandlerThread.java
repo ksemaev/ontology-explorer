@@ -704,7 +704,10 @@ public class TxnHandlerThread {
         contracts.setDescription(contractObj.getString("Description"));
         contracts.setAbi("");
         contracts.setCode("");
+        contracts.setLogo("");
+        contracts.setType("");
         contracts.setTxcount(0);
+        contracts.setContactinfo("");
         contracts.setCreatetime(blockTime);
         contracts.setUpdatetime(blockTime);
         contracts.setAuditflag(0);
@@ -715,6 +718,8 @@ public class TxnHandlerThread {
         contracts.setTokencount(JSON.toJSONString(new ArrayList<>()));
         contracts.setDappstoreflag(ConstantParam.DAPPSTOREFLAG_NO);
         contracts.setCategory("");
+        contracts.setTotalreward(new BigDecimal(0));
+        contracts.setWeeklyreward(new BigDecimal(0));
         contractsMapper.insertSelective(contracts);
     }
 

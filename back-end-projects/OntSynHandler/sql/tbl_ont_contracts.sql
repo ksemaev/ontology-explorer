@@ -38,5 +38,6 @@ CREATE TABLE `tbl_ont_contracts` (
   `dappstoreflag` int(1) NOT NULL DEFAULT '0' COMMENT 'dappstore标识。1：合约属于dappstore，0：合约不属于dappstore',
   `category` varchar(255) NOT NULL DEFAULT '' COMMENT '合约分类',
   `totalreward` decimal(25,9) NOT NULL DEFAULT '0.000000000' COMMENT '总激励',
+  `weeklyreward` decimal(25,9) NOT NULL DEFAULT '0.000000000' COMMENT '周激励',
   PRIMARY KEY (`contract`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
