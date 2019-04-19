@@ -29,11 +29,12 @@
     <result column="dappstoreflag" jdbcType="INTEGER" property="dappstoreflag" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="totalreward" jdbcType="DECIMAL" property="totalreward" />
+    <result column="weeklyreward" jdbcType="DECIMAL" property="weeklyreward" />
   </resultMap>
   <sql id="Base_Column_List">
     contract, name, txcount, abi, code, createtime, auditflag, updatetime, contactinfo, 
     type, description, logo, creator, addresscount, ontcount, ongcount, project, tokencount, 
-    dappstoreflag, category, totalreward
+    dappstoreflag, category, totalreward, weeklyreward
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -52,16 +53,16 @@
       type, description, logo, 
       creator, addresscount, ontcount, 
       ongcount, project, tokencount, 
-      dappstoreflag, category, totalreward
-      )
+      dappstoreflag, category, totalreward, 
+      weeklyreward)
     values (#{contract,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{txcount,jdbcType=INTEGER}, 
       #{abi,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{createtime,jdbcType=INTEGER}, 
       #{auditflag,jdbcType=INTEGER}, #{updatetime,jdbcType=INTEGER}, #{contactinfo,jdbcType=VARCHAR}, 
       #{type,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{addresscount,jdbcType=INTEGER}, #{ontcount,jdbcType=DECIMAL}, 
       #{ongcount,jdbcType=DECIMAL}, #{project,jdbcType=VARCHAR}, #{tokencount,jdbcType=VARCHAR}, 
-      #{dappstoreflag,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{totalreward,jdbcType=DECIMAL}
-      )
+      #{dappstoreflag,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{totalreward,jdbcType=DECIMAL}, 
+      #{weeklyreward,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.github.ontio.model.Contracts">
     insert into tbl_ont_contracts
@@ -129,6 +130,9 @@
       <if test="totalreward != null">
         totalreward,
       </if>
+      <if test="weeklyreward != null">
+        weeklyreward,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="contract != null">
@@ -193,6 +197,9 @@
       </if>
       <if test="totalreward != null">
         #{totalreward,jdbcType=DECIMAL},
+      </if>
+      <if test="weeklyreward != null">
+        #{weeklyreward,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -259,6 +266,9 @@
       <if test="totalreward != null">
         totalreward = #{totalreward,jdbcType=DECIMAL},
       </if>
+      <if test="weeklyreward != null">
+        weeklyreward = #{weeklyreward,jdbcType=DECIMAL},
+      </if>
     </set>
     where contract = #{contract,jdbcType=VARCHAR}
   </update>
@@ -283,7 +293,8 @@
       tokencount = #{tokencount,jdbcType=VARCHAR},
       dappstoreflag = #{dappstoreflag,jdbcType=INTEGER},
       category = #{category,jdbcType=VARCHAR},
-      totalreward = #{totalreward,jdbcType=DECIMAL}
+      totalreward = #{totalreward,jdbcType=DECIMAL},
+      weeklyreward = #{weeklyreward,jdbcType=DECIMAL}
     where contract = #{contract,jdbcType=VARCHAR}
   </update>
 
@@ -356,7 +367,7 @@
 
 
   <select id="selectDappstoreContract" resultType="java.util.Map" useCache="false">
-    select contract as ContractHash, Name, Logo, Description, Category, CreateTime, Project, TotalReward
+    select contract as ContractHash, Name, Logo, Description, Category, CreateTime, Project, TotalReward, WeeklyReward
     from tbl_ont_contracts
     where dappstoreflag = 1
   </select>
