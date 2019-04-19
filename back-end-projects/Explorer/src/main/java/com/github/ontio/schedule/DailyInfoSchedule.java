@@ -129,7 +129,9 @@ public class DailyInfoSchedule {
                         tokenCountMapList = transactionDetailMapper.selectContractTokenAllSum(paramMap);
                         if (!Helper.isEmptyOrNull(tokenCountMapList) && tokenCountMapList.size() != 0) {
                             Map oep8Map = tokenCountMapList.get(0);
-                            oep8Map.put("Assetname", ((String) oep8Map.get("Assetname")).split(":")[0]);
+                            if(!Helper.isEmptyOrNull(oep8Map)){
+                                oep8Map.put("Assetname", ((String) oep8Map.get("Assetname")).split(":")[0]);
+                            }
                         }
 
                     } else {
