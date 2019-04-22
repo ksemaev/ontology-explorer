@@ -10,7 +10,7 @@ public interface ContractsMapper {
 
     int insertSelective(Contracts record);
 
-    Contracts selectContractByContractHash(String contract);
+    Integer selectCountByContractHash(String contract);
 
     int updateByPrimaryKeySelective(Contracts record);
 

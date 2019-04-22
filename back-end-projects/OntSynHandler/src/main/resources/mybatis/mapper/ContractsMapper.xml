@@ -26,8 +26,8 @@
     <result column="weeklyreward" jdbcType="DECIMAL" property="weeklyreward" />
   </resultMap>
   <sql id="Base_Column_List">
-    contract, name, txcount, abi, code, createtime, auditflag, updatetime, contactinfo, 
-    type, description, logo, creator, addresscount, ontcount, ongcount, project, tokencount, 
+    contract, name, txcount, abi, code, createtime, auditflag, updatetime, contactinfo,
+    type, description, logo, creator, addresscount, ontcount, ongcount, project, tokencount,
     dappstoreflag, category, totalreward, weeklyreward
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -41,21 +41,21 @@
     where contract = #{contract,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.github.ontio.model.Contracts">
-    insert into tbl_ont_contracts (contract, name, txcount, 
-      abi, code, createtime, 
-      auditflag, updatetime, contactinfo, 
-      type, description, logo, 
-      creator, addresscount, ontcount, 
-      ongcount, project, tokencount, 
-      dappstoreflag, category, totalreward, 
+    insert into tbl_ont_contracts (contract, name, txcount,
+      abi, code, createtime,
+      auditflag, updatetime, contactinfo,
+      type, description, logo,
+      creator, addresscount, ontcount,
+      ongcount, project, tokencount,
+      dappstoreflag, category, totalreward,
       weeklyreward)
-    values (#{contract,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{txcount,jdbcType=INTEGER}, 
-      #{abi,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{createtime,jdbcType=INTEGER}, 
-      #{auditflag,jdbcType=INTEGER}, #{updatetime,jdbcType=INTEGER}, #{contactinfo,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
-      #{creator,jdbcType=VARCHAR}, #{addresscount,jdbcType=INTEGER}, #{ontcount,jdbcType=DECIMAL}, 
-      #{ongcount,jdbcType=DECIMAL}, #{project,jdbcType=VARCHAR}, #{tokencount,jdbcType=VARCHAR}, 
-      #{dappstoreflag,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{totalreward,jdbcType=DECIMAL}, 
+    values (#{contract,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{txcount,jdbcType=INTEGER},
+      #{abi,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{createtime,jdbcType=INTEGER},
+      #{auditflag,jdbcType=INTEGER}, #{updatetime,jdbcType=INTEGER}, #{contactinfo,jdbcType=VARCHAR},
+      #{type,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR},
+      #{creator,jdbcType=VARCHAR}, #{addresscount,jdbcType=INTEGER}, #{ontcount,jdbcType=DECIMAL},
+      #{ongcount,jdbcType=DECIMAL}, #{project,jdbcType=VARCHAR}, #{tokencount,jdbcType=VARCHAR},
+      #{dappstoreflag,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{totalreward,jdbcType=DECIMAL},
       #{weeklyreward,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.github.ontio.model.Contracts">
