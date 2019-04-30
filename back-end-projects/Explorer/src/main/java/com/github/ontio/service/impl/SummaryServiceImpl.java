@@ -261,8 +261,8 @@ public class SummaryServiceImpl implements ISummaryService {
      * @return
      */
     public List<AddressSummary> updateDailyContractInfoAndContractNewAddress(Integer oneDayAgo0HourTime) {
-        //查询所有合约，不管是否审核过
-        List<Contracts> contractList = contractsMapper.selectAllContract();
+        //查询所有审核过的合约
+        List<Contracts> contractList = contractsMapper.selectAllApprovedContract();
         if (contractList.isEmpty()) {
             return new ArrayList<>();
         }
