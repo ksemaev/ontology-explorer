@@ -45,6 +45,8 @@ public class Contracts {
 
     private BigDecimal totalreward;
 
+    private BigDecimal weeklyreward;
+
     public String getContract() {
         return contract;
     }
@@ -211,5 +213,13 @@ public class Contracts {
 
     public void setTotalreward(BigDecimal totalreward) {
         this.totalreward = totalreward;
+    }
+
+    public BigDecimal getWeeklyreward() {
+        return weeklyreward;
+    }
+
+    public void setWeeklyreward(BigDecimal weeklyreward) {
+        this.weeklyreward = weeklyreward;
     }
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.github.ontio.dao.AddressSummaryMapper" >
-  <cache type="com.github.ontio.ExplorerRedisCache">
+<!--  <cache type="com.github.ontio.ExplorerRedisCache">
     <property name="eviction" value="LRU" />
     <property name="size" value="1024" />
     <property name="flushInterval" value="6000" />
     <property name="readOnly" value="false" />
-  </cache>
+  </cache>-->
 
   <resultMap id="BaseResultMap" type="com.github.ontio.model.AddressSummary" >
     <id column="id" property="id" jdbcType="BIGINT" />
@@ -66,19 +66,19 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="selectDistinctAddress" resultType="String" useCache="false">
+  <select id="selectDistinctAddress" resultType="String" >
     SELECT DISTINCT(address)
         from tbl_ont_address_summary
         where type = 'common'
   </select>
 
-  <select id="selectDistinctAddressByContract" resultType="String" parameterType="String" useCache="false">
+  <select id="selectDistinctAddressByContract" resultType="String" parameterType="String" >
     SELECT DISTINCT(address)
         from tbl_ont_address_summary
         where type = #{param1}
   </select>
 
-  <select id="selectAllAddressCount" resultType="Integer" parameterType="String" useCache="false">
+  <select id="selectAllAddressCount" resultType="Integer" parameterType="String" >
     SELECT count(DISTINCT(address))
         from tbl_ont_address_summary
         where type = 'common'

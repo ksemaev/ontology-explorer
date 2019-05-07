@@ -226,14 +226,14 @@
 
 
 
-  <select id="selectTxnCount" parameterType="java.lang.String" resultType="java.lang.Integer" useCache="false">
+  <select id="selectTxnCount" parameterType="java.lang.String" resultType="java.lang.Integer" >
     select count(DISTINCT(txnhash))
     from tbl_ont_txn_detail_daily
     where confirmflag = 1
     and calledcontracthash = #{contractHash}
   </select>
 
-  <select id="selectiveByEndTime"  resultType="java.lang.Integer" parameterType="java.util.Map" useCache="false">
+  <select id="selectiveByEndTime"  resultType="java.lang.Integer" parameterType="java.util.Map" >
     SELECT count(1) from tbl_ont_txn_detail_daily
         where <![CDATA[ txntime < #{startTime} ]]>
   </select>
@@ -242,7 +242,7 @@
     delete from tbl_ont_txn_detail_daily where <![CDATA[ txntime < #{startTime} ]]>
   </delete>
 
-  <select id="selectContractAddr" parameterType="java.lang.String" resultType="java.lang.String" useCache="false">
+  <select id="selectContractAddr" parameterType="java.lang.String" resultType="java.lang.String" >
     select DISTINCT(address) from (
       SELECT
       DISTINCT(fromaddress) as address
@@ -260,7 +260,7 @@
     ) a
   </select>
 
-  <select id="selectContractAssetAmount" resultType="java.math.BigDecimal" useCache="false">
+  <select id="selectContractAssetAmount" resultType="java.math.BigDecimal" >
     SELECT
     sum(amount)
     FROM tbl_ont_txn_detail_daily

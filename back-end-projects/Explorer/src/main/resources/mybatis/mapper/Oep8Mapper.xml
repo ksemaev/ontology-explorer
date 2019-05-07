@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.github.ontio.dao.Oep8Mapper" >
+<!--
   <cache type="com.github.ontio.ExplorerRedisCache">
     <property name="eviction" value="LRU" />
     <property name="size" value="1024" />
     <property name="readOnly" value="false" />
   </cache>
+-->
 
   <resultMap id="BaseResultMap" type="com.github.ontio.model.Oep8" >
     <id column="id" property="id" jdbcType="BIGINT" />
@@ -198,7 +200,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="queryOEPContracts" parameterType="java.util.Map" resultType="java.util.Map" useCache="false">
+  <select id="queryOEPContracts" parameterType="java.util.Map" resultType="java.util.Map" >
     select a.contract as ContractHash, b.Name, GROUP_CONCAT(a.tokenid) as TokenId,GROUP_CONCAT(a.TotalSupply) as TotalSupply, GROUP_CONCAT(a.Symbol) as Symbol, GROUP_CONCAT(a.Name) as TokenName, b.Description, b.ContactInfo,
             b.CreateTime, b.UpdateTime, b.Logo, b.ABI, b.Code, b.TxCount, b.Creator, b.Addresscount, b.OntCount, b.OngCount
     from tbl_ont_oep8 a, tbl_ont_contracts b
@@ -208,16 +210,16 @@
     limit #{Start}, #{PageSize}
   </select>
 
-  <select id="queryOEPContractCount" resultType="Integer" useCache="false">
+  <select id="queryOEPContractCount" resultType="Integer" >
     select count(distinct a.contract) from tbl_ont_oep8 a,tbl_ont_contracts b where a.contract = b.contract	GROUP BY a.contract
   </select>
 
-  <select id="queryOEPContract" parameterType="String" resultType="com.github.ontio.model.Oep8" useCache="false">
+  <select id="queryOEPContract" parameterType="String" resultType="com.github.ontio.model.Oep8" >
     select contract, GROUP_CONCAT(tokenid) as tokenid, GROUP_CONCAT(totalsupply) as description, GROUP_CONCAT(symbol) as symbol, GROUP_CONCAT(name) as name
           from tbl_ont_oep8 where contract = #{contractHash} GROUP BY contract
   </select>
 
-  <select id="queryOEPContractByHashAndTokenName" parameterType="String" resultType="com.github.ontio.model.Oep8" useCache="false">
+  <select id="queryOEPContractByHashAndTokenName" parameterType="String" resultType="com.github.ontio.model.Oep8" >
     select * from tbl_ont_oep8 where contract = #{param1} and name = #{param2}
   </select>
 
@@ -225,7 +227,7 @@
     DELETE FROM tbl_ont_oep8 WHERE contract = #{contractHash}
   </delete>
 
-  <select id="selectAllKeyInfo" resultType="java.util.Map" useCache="false">
+  <select id="selectAllKeyInfo" resultType="java.util.Map" >
     select Contract, GROUP_CONCAT(name) as Symbol
     from tbl_ont_oep8
     where auditflag = 1
