@@ -240,8 +240,7 @@
     SUM(txncount) AS WeekTxCount,
     SUM(ontcount) AS WeekOnt,
     SUM(ongcount) AS WeekOng,
-    SUM(activeaddress) AS WeekActiveAddressCount,
-    ontreward AS WeekRewardOnt
+    SUM(activeaddress) AS WeekActiveAddressCount
     FROM
     tbl_ont_contract_summary
     WHERE 1=1
@@ -254,7 +253,7 @@
     and time >= #{beginTime}
     and <![CDATA[ time <= #{endTime} ]]>
     GROUP BY project
-    order by WeekActiveAddressCount desc, WeekTxCount desc
+    order by WeekActiveAddressCount desc, WeekTxCount desc, contracthash desc
     limit #{start}, #{pageSize}
   </select>
 
