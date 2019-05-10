@@ -53,7 +53,7 @@
       type, description, logo, 
       creator, addresscount, ontcount, 
       ongcount, project, tokencount, 
-      dappstoreflag, category, totalreward, 
+      dappstoreflag, category, totalreward,
       weeklyreward)
     values (#{contract,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{txcount,jdbcType=INTEGER}, 
       #{abi,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{createtime,jdbcType=INTEGER}, 
@@ -61,7 +61,7 @@
       #{type,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{addresscount,jdbcType=INTEGER}, #{ontcount,jdbcType=DECIMAL}, 
       #{ongcount,jdbcType=DECIMAL}, #{project,jdbcType=VARCHAR}, #{tokencount,jdbcType=VARCHAR}, 
-      #{dappstoreflag,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{totalreward,jdbcType=DECIMAL}, 
+      #{dappstoreflag,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{totalreward,jdbcType=DECIMAL},
       #{weeklyreward,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.github.ontio.model.Contracts">
