@@ -77,5 +77,8 @@ public class ConfigParam {
     @Value("${ontreward.week}")
     public BigDecimal ONTREWARD_WEEK;
 
+    @Value("${reqlimit.expire.second}")
+    public Integer REQLIMIT_EXPIRE_SECOND;
+
 
 }

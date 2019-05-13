@@ -77,6 +77,11 @@ public enum ErrorInfo {
      */
     SERIALIZE_ERROR(61009L,"FAIL, serialized error."),
 
+    /**
+     * serialized error
+     */
+    REQ_EXCEED(61010L,"Access frequency exceeded limit."),
+
 
 
 
@@ -104,8 +109,6 @@ public enum ErrorInfo {
      * error occur when operate db
      */
     DB_ERROR(62005L, "FAIL, db operate fail."),
-
-
 
 
     /**
