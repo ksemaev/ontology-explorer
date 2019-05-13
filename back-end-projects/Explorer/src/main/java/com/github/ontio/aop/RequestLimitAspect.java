@@ -46,7 +46,7 @@ public class RequestLimitAspect {
         String key = "reqLimit_".concat(url).concat("_").concat(ip);
         //加1后看看值
         long count = redisTemplate.opsForValue().increment(key, 1);
-        log.info("reqLimit_key:{},count:{}",key,count);
+        //log.info("reqLimit_key:{},count:{}",key,count);
         //刚创建
         if (count == 1) {
             //设置xx秒过期
