@@ -22,6 +22,7 @@ package com.github.ontio.controller;
 import com.github.ontio.paramBean.Result;
 import com.github.ontio.service.impl.TransactionServiceImpl;
 import com.github.ontio.utils.Helper;
+import com.github.ontio.aop.RequestLimit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,7 @@ public class TransactionController {
      *
      * @return
      */
+    @RequestLimit(count = 60)
     @RequestMapping(value = "/address/{address}/{pagesize}/{pagenumber}", method = RequestMethod.GET)
     @ResponseBody
     public Result queryAddressInfo(@PathVariable("address") String address,
@@ -117,6 +119,7 @@ public class TransactionController {
      *
      * @return
      */
+    @RequestLimit(count = 60)
     @RequestMapping(value = "/address/{address}/{assetname}/{pagesize}/{pagenumber}", method = RequestMethod.GET)
     @ResponseBody
     public Result queryAddressInfo(@PathVariable("address") String address,
@@ -193,6 +196,7 @@ public class TransactionController {
      *
      * @return
      */
+    @RequestLimit(count = 60)
     @RequestMapping(value = "/address/balance/{address}", method = RequestMethod.GET)
     @ResponseBody
     public Result queryAddressBalance(@PathVariable("address") String address) {

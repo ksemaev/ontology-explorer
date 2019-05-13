@@ -1,5 +1,6 @@
 package com.github.ontio.controller;
 
+import com.github.ontio.aop.RequestLimit;
 import com.github.ontio.paramBean.Result;
 import com.github.ontio.service.impl.ContractServiceImpl;
 import com.github.ontio.utils.Helper;
@@ -46,6 +47,7 @@ public class ContractController {
      * @param pageSize   the amount of each page
      * @return
      */
+    @RequestLimit(count = 60)
     @RequestMapping(value = "/contract/{contracthash}/{pagesize}/{pagenumber}", method = RequestMethod.GET)
     @ResponseBody
     public Result queryContractTxsByPage(@PathVariable("contracthash") String contractHash,
@@ -69,6 +71,7 @@ public class ContractController {
      * @param pageSize   the amount of each page
      * @return
      */
+    @RequestLimit(count = 60)
     @RequestMapping(value = "/oepcontract/{type}/{pagesize}/{pagenumber}", method = RequestMethod.GET)
     public Result queryOEPContract(@PathVariable("type") String type,
                                     @PathVariable("pagenumber") Integer pageNumber,
@@ -92,6 +95,7 @@ public class ContractController {
      * @param pageSize   the amount of each page
      * @return
      */
+    @RequestLimit(count = 60)
     @RequestMapping(value = "/oepcontract/{type}/{contracthash}/{pagesize}/{pagenumber}", method = RequestMethod.GET)
     public Result queryOEPContractByHash(@PathVariable("contracthash") String contracthash,
                                          @PathVariable("type") String type,
@@ -117,6 +121,7 @@ public class ContractController {
      * @param pageSize   the amount of each page
      * @return
      */
+    @RequestLimit(count = 60)
     @RequestMapping(value = "/oepcontract/{type}/{contracthash}/{tokenname}/{pagesize}/{pagenumber}", method = RequestMethod.GET)
     public Result queryOEPContractByHashAndSymbol(@PathVariable("contracthash") String contracthash,
                                                    @PathVariable("type") String type,
