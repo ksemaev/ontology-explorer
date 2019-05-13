@@ -67,7 +67,7 @@ public class DailyInfoSchedule {
     /**
      * 更新合约的地址数、交易数、交易额（ong\ont\tokenName）
      */
-    @Scheduled(cron = "0 0/10 * * * *")
+    @Scheduled(cron = "0 0/30 * * * *")
     public void UpdateContractInfo() {
         logger.info("####{}.{} begin...", CLASS_NAME, Helper.currentMethod());
 
