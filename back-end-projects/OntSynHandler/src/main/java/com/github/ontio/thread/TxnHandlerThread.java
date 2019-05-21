@@ -161,6 +161,9 @@ public class TxnHandlerThread {
                 if (object instanceof JSONArray) {
                     stateArray = (JSONArray) object;
                 } else {
+                    //other transaction
+                    insertTxnBasicInfo(session, txnType, txnHash, blockHeight, blockTime, indexInBlock, confirmFlag, "",
+                            gasConsumed, i + 1, 0, contractAddress, payer, calledContractHash);
                     continue;
                 }
 
