@@ -938,8 +938,11 @@ public class TxnHandlerThread {
         int tryTime = 1;
         while (true) {
             try {
-                eventObj = (JSONObject) ConstantParam.ONT_SDKSERVICE.getConnect().getSmartCodeEvent(txnHash);
-                break;
+                Object obj =  ConstantParam.ONT_SDKSERVICE.getConnect().getSmartCodeEvent(txnHash);
+                if(obj instanceof JSONObject){
+                    eventObj = (JSONObject)obj;
+                    break;
+                }
             } catch (ConnectorException ex) {
                 logger.error("getEventObjByTxnHash error, try again...restsful:{},error:", ConstantParam.MASTERNODE_RESTFULURL, ex);
                 if (tryTime % configParam.NODE_INTERRUPTTIME_MAX == 0) {
