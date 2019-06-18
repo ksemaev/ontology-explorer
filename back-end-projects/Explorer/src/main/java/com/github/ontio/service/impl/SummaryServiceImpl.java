@@ -1,7 +1,5 @@
 package com.github.ontio.service.impl;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.github.ontio.dao.*;
 import com.github.ontio.model.AddressSummary;
 import com.github.ontio.model.ContractSummary;
@@ -16,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -742,7 +739,21 @@ public class SummaryServiceImpl implements ISummaryService {
     @Override
     public Result queryTotalSupply() {
 
-        BigDecimal specialAmount = new BigDecimal("0");
+        initSDK();
+
+        BigDecimal specialAddrOnt = new BigDecimal("0");
+
+        for (String addr:
+                ConstantParam.SPECIALADDRLIST){
+            Map<String, String> map = sdk.getAddressBalance(addr);
+            specialAddrOnt = specialAddrOnt.add(new BigDecimal(map.get("ont")));
+        }
+
+        BigDecimal balanceOnt = ConstantParam.ONT_TOTAL.subtract(specialAddrOnt).divide(ConstantParam.ONT_TOTAL);
+
+        return Helper.result("QueryTotalSupply", ErrorInfo.SUCCESS.code(), ErrorInfo.SUCCESS.desc(), VERSION, balanceOnt);
+
+/*        BigDecimal specialAmount = new BigDecimal("0");
         //?qid=1&contract=0100000000000000000000000000000000000000&from=0&count=100
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("qid", 1);
@@ -765,15 +776,37 @@ public class SummaryServiceImpl implements ISummaryService {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("error...", e);
-        }
+        }*/
 
-        return Helper.result("QueryTotalSupply", ErrorInfo.SUCCESS.code(), ErrorInfo.SUCCESS.desc(), VERSION, new BigDecimal("1").subtract(specialAmount));
+        //return Helper.result("QueryTotalSupply", ErrorInfo.SUCCESS.code(), ErrorInfo.SUCCESS.desc(), VERSION, new BigDecimal("1").subtract(specialAmount));
     }
 
     @Override
     public Result queryNativeTotalSupply() {
 
-        BigDecimal specialAmount = new BigDecimal("0");
+        initSDK();
+
+        BigDecimal specialAddrOnt = new BigDecimal("0");
+
+        for (String addr:
+                ConstantParam.SPECIALADDRLIST){
+            Map<String, String> map = sdk.getAddressBalance(addr);
+            specialAddrOnt = specialAddrOnt.add(new BigDecimal(map.get("ont")));
+        }
+        //其他地址，即流通量
+        BigDecimal balanceOnt = ConstantParam.ONT_TOTAL.subtract(specialAddrOnt);
+
+        //((当前时间-创世区块时间)*每秒生成5个ONG) * ONT持仓量/ONT总量
+        BigDecimal ongAmount = new BigDecimal(System.currentTimeMillis() / 1000L).subtract(new BigDecimal(configParam.GENESISBLOCK_TIME)).multiply(configParam.ONG_SECOND_GENERATE);
+        BigDecimal ongTotalSupply = ongAmount.multiply(balanceOnt).divide(ConstantParam.ONT_TOTAL);
+
+        Map<String, BigDecimal> rsMap = new HashMap<>();
+        rsMap.put("ong", ongTotalSupply);
+        rsMap.put("ont", balanceOnt);
+
+        return Helper.result("QueryNativeTotalSupply", ErrorInfo.SUCCESS.code(), ErrorInfo.SUCCESS.desc(), VERSION, rsMap);
+
+/*        BigDecimal specialAmount = new BigDecimal("0");
         //?qid=1&contract=0100000000000000000000000000000000000000&from=0&count=100
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("qid", 1);
@@ -808,6 +841,6 @@ public class SummaryServiceImpl implements ISummaryService {
         rsMap.put("ong", ongTotalSupply);
         rsMap.put("ont", ontTotalSupply);
 
-        return Helper.result("QueryNativeTotalSupply", ErrorInfo.SUCCESS.code(), ErrorInfo.SUCCESS.desc(), VERSION, rsMap);
+        return Helper.result("QueryNativeTotalSupply", ErrorInfo.SUCCESS.code(), ErrorInfo.SUCCESS.desc(), VERSION, rsMap);*/
     }
 }
